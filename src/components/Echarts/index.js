@@ -24,20 +24,21 @@ export default class App extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, height: this.props.height || 400,}}>
-        <WebView
-          ref="chart"
-          scrollEnabled = {false}
-          injectedJavaScript = {renderChart(this.props)}
-          style={{
-            height: this.props.height || 400,
-            backgroundColor: this.props.backgroundColor || 'transparent'
-          }}
-          scalesPageToFit={Platform.OS !== 'ios'}
-          originWhitelist={['*']}
-          source={require('./tpl.html')}
-          onMessage={event => this.props.onPress ? this.props.onPress(JSON.parse(event.nativeEvent.data)) : null}
-        />
+      <View style={{ flex: 1, height: this.props.height || 400,}}>
+          <WebView
+              androidHardwareAccelerationDisabled
+              ref="chart"
+              scrollEnabled={false}
+              injectedJavaScript={renderChart(this.props)}
+              style={{
+                  height: this.props.height || 400,
+                  backgroundColor: this.props.backgroundColor || 'transparent'
+              }}
+              scalesPageToFit={Platform.OS === 'android' ? true : false}
+              originWhitelist={['*']}
+              source={Platform.OS === 'ios' ? require('./tpl.html') : { uri: 'file:///android_asset/tpl.html' }}
+              onMessage={event => this.props.onPress ? this.props.onPress(JSON.parse(event.nativeEvent.data)) : null}
+          />
       </View>
     );
   }

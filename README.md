@@ -7,6 +7,7 @@
 
 ## 备注
 升级了内部webview依赖，改成依赖react-native-webview
+安卓添加androidHardwareAccelerationDisabled
 
 ## install
 
